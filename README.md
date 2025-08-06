@@ -26,9 +26,13 @@ npm install node-fetch xml2js
 
 .
 ├── utils/
+
 │   └── getVCBExchangeRates.js   # Core logic to fetch + parse XML
+
 ├── index.js                     # Entry point for testing
+
 └── README.md
+
 
 🧠 Usage
 ```bash
