@@ -1,0 +1,11 @@
+{
+  "name": "vcb-exchange",
+  "version": "1.0.0",
+  "description": "[VN] Lấy tỷ giá của VCB (Vietcombank) // [EN] Exchange Rates by VCB (Vietcombank)",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "Bui Quoc Huy",
+  "license": "ISC"
+}
