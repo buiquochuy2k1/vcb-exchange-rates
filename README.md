@@ -1,4 +1,4 @@
-# 📈 Viet Nam Exchange Rate Parser
+# 📈 Viet Nam Bank Exchange Rate Parser
 
 A simple Node.js utility to fetch and parse live exchange rates from several bank in Viet Nam official XML endpoint.
 
@@ -24,17 +24,15 @@ npm install node-fetch xml2js
 
 📁 File Structure
 
+```md
 ├── utils/
+│ ├── getVCBExchangeRates.js # Core logic to fetch + parse XML from Vietcombank
+│ ├── getTCBExchangeRates.js # Core logic to fetch + format JSON from Techcombank
 │
-│─────
-│    └── getVCBExchangeRates.js   # Core logic to fetch + parse XML
-│    │
-│    └── getVCBExchangeRates.js   # Core logic to fetch + parse XML
-│
-├── index.js                      # Entry point for testing
+├── index.js # Entry point for testing
 │
 └── README.md
-
+```
 
 🧠 Usage
 ```bash
