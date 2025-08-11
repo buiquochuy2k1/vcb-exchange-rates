@@ -1,8 +1,7 @@
 
-// Cài đặt thư viện trước: npm install axios
-import axios from "axios";
+const axios = require('axios');
 
-const url =
+const TCB_ENDPOINT =
   "https://techcombank.com/content/techcombank/web/vn/vi/cong-cu-tien-ich/ty-gia/_jcr_content.exchange-rates.integration.json";
 
 // Map tên viết tắt sang tên đầy đủ
@@ -19,10 +18,10 @@ const currencyNames = {
   NZD: "NEW ZEALAND DOLLAR    ",
   SGD: "SINGAPORE DOLLAR      ",
   THB: "THAILAND BAHT         ",
-  USD: "US DOLLAR             ",
-  "USD (1,2)": "US DOLLAR     ",
-  "USD (5,10,20)": "US DOLLAR ",
-  "USD (50,100)": "US DOLLAR  ",
+  USD: 'US DOLLAR             ',
+  'USD (1,2)': 'US DOLLAR (1,2)    ',
+  'USD (5,10,20)': 'US DOLLAR (5,10,20)',
+  'USD (50,100)': 'US DOLLAR (50,100)',
 };
 
 function formatNumber(value) {
@@ -43,16 +42,16 @@ export async function getTCBExchangeRates() {
 
     const exrates = data.exchangeRate.data.map((item) => {
       // Lấy mã tiền tệ (label)
-      let code = item.sourceCurrencyCode;
+      let code = item.sourceCurrency;
       let codeLabel = item.label;
       
 
       return {
         CurrencyCode: code,
         CurrencyName: currencyNames[codeLabel] || codeLabel,
-        Buy: formatNumber(item.bidRateTM || item.bidRateCK),
-        Transfer: formatNumber(item.bidRateCK || item.bidRateTM),
-        Sell: formatNumber(item.askRate || item.askRateTM),
+        Buy: formatNumber(item.bidRateTM || ''),
+        Transfer: formatNumber(item.bidRateCK || ''),
+        Sell: formatNumber(item.askRateTM || ''),
       };
     });
 
@@ -71,4 +70,5 @@ export async function getTCBExchangeRates() {
     console.error("Lỗi khi lấy dữ liệu:", error.message);
   }
 }
+
 
