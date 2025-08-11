@@ -7,19 +7,22 @@ const url =
 
 // Map tên viết tắt sang tên đầy đủ
 const currencyNames = {
-  AUD: "AUSTRALIAN DOLLAR   ",
-  CAD: "CANADIAN DOLLAR     ",
-  CHF: "SWISS FRANC         ",
-  CNY: "YUAN RENMINBI       ",
-  EUR: "EURO                ",
-  GBP: "POUND STERLING      ",
-  HKD: "HONGKONG DOLLAR     ",
-  JPY: "YEN                 ",
-  KRW: "KOREAN WON          ",
-  NZD: "NEW ZEALAND DOLLAR  ",
-  SGD: "SINGAPORE DOLLAR    ",
-  THB: "THAILAND BAHT       ",
-  USD: "US DOLLAR           ",
+  AUD: "AUSTRALIAN DOLLAR     ",
+  CAD: "CANADIAN DOLLAR       ",
+  CHF: "SWISS FRANC           ",
+  CNY: "YUAN RENMINBI         ",
+  EUR: "EURO                  ",
+  GBP: "POUND STERLING        ",
+  HKD: "HONGKONG DOLLAR       ",
+  JPY: "YEN                   ",
+  KRW: "KOREAN WON            ",
+  NZD: "NEW ZEALAND DOLLAR    ",
+  SGD: "SINGAPORE DOLLAR      ",
+  THB: "THAILAND BAHT         ",
+  USD: "US DOLLAR             ",
+  "USD (1,2)": "US DOLLAR     ",
+  "USD (5,10,20)": "US DOLLAR ",
+  "USD (50,100)": "US DOLLAR  ",
 };
 
 function formatNumber(value) {
@@ -39,13 +42,14 @@ export async function getTCBExchangeRates() {
     const data = response.data;
 
     const exrates = data.exchangeRate.data.map((item) => {
-      // Lấy mã tiền tệ (label) và bỏ phần USD (1,2) thành USD
-      let code = item.sourceCurrency;
-      if (code === "USD") code = "USD";
+      // Lấy mã tiền tệ (label)
+      let code = item.sourceCurrencyCode;
+      let codeLabel = item.label;
+      
 
       return {
         CurrencyCode: code,
-        CurrencyName: currencyNames[code] || code,
+        CurrencyName: currencyNames[codeLabel] || codeLabel,
         Buy: formatNumber(item.bidRateTM || item.bidRateCK),
         Transfer: formatNumber(item.bidRateCK || item.bidRateTM),
         Sell: formatNumber(item.askRate || item.askRateTM),
@@ -61,8 +65,10 @@ export async function getTCBExchangeRates() {
       },
     };
 
-    console.log(JSON.stringify(result, null, 2));
+    return result;
+    
   } catch (error) {
     console.error("Lỗi khi lấy dữ liệu:", error.message);
   }
 }
+
