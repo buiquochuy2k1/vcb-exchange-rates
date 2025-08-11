@@ -34,7 +34,7 @@ function formatNumber(value) {
 
 export async function getTCBExchangeRates() {
   try {
-    const response = await axios.get(url, {
+    const response = await axios.get(TCB_ENDPOINT, {
       headers: { "User-Agent": "Mozilla/5.0" },
     });
 
@@ -70,5 +70,6 @@ export async function getTCBExchangeRates() {
     console.error("Lỗi khi lấy dữ liệu:", error.message);
   }
 }
+
 
 
